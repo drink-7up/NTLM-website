@@ -1,1 +1,165 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Nevertheless Missions</title>
+<meta name="description" content="Nevertheless Missions — 日本へのデジタル宣教。" />
 
+<style>
+  :root{
+    --bg:#ffffff; --fg:#0a0a0a; --muted:#575757;
+    --accent:#9E1B1B; --accent-light:#F3E5E5; --accent-ring:#C94C4C; --accent-ink:#ffffff;
+    --maxw:900px;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --bg:#0c0c0c; --fg:#f3f3f3; --muted:#b7b7b7;
+      --accent:#9E1B1B; --accent-light:#2B0E0E; --accent-ring:#802121; --accent-ink:#ffffff;
+    }
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{
+    margin:0; background:var(--bg); color:var(--fg);
+    font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+    line-height:1.6; -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:var(--maxw); margin:0 auto; padding:0 20px}
+  .muted{color:var(--muted)}
+  .sr-only{position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0}
+
+  header{position:sticky; top:0; z-index:20; background:var(--bg); border-bottom:1px solid var(--accent-light)}
+  .nav{height:64px; display:flex; align-items:center; justify-content:space-between; gap:12px}
+  .brand{font-weight:800; letter-spacing:.2px}
+  .controls{display:flex; align-items:center; gap:8px}
+  .lang-btn{
+    appearance:none; border:1px solid var(--accent); background:transparent;
+    color:var(--accent); padding:.55rem .8rem; border-radius:10px; cursor:pointer; font-weight:700;
+  }
+  .lang-btn:hover{background:var(--accent-light)}
+  .lang-btn:focus{outline:2px solid var(--accent-ring); outline-offset:2px}
+  .hamburger{
+    display:inline-flex; width:42px; height:42px; border:1px solid var(--accent-light); border-radius:10px;
+    align-items:center; justify-content:center; background:transparent; cursor:pointer; color:var(--accent);
+  }
+  .hamburger:focus{outline:2px solid var(--accent-ring); outline-offset:2px}
+  .hamburger .bars{width:18px; height:12px; display:grid; gap:4px}
+  .hamburger .bars span{display:block; height:2px; background:var(--accent); transition:transform .2s ease, opacity .2s ease}
+  .hamburger[aria-expanded="true"] .bars span:nth-child(1){transform:translateY(6px) rotate(45deg)}
+  .hamburger[aria-expanded="true"] .bars span:nth-child(2){opacity:0}
+  .hamburger[aria-expanded="true"] .bars span:nth-child(3){transform:translateY(-6px) rotate(-45deg)}
+  .menu{position:fixed; inset:0; background:var(--bg); display:none; z-index:15}
+  .menu[data-open="true"]{display:block}
+  .menu-inner{max-width:var(--maxw); margin:0 auto; padding:24px 20px 40px; display:flex; flex-direction:column; height:100%}
+  .menu-top{display:flex; justify-content:flex-end}
+  .menu-links{margin:auto 0; display:grid; gap:16px}
+  .menu-links a{text-decoration:none; color:var(--accent); font-size:1.6rem; font-weight:700}
+  .menu-links a:hover{color:var(--accent-ring)}
+  .menu-foot{margin-top:auto; font-size:.9rem; color:var(--muted)}
+
+  .hero{padding:80px 0 56px}
+  .kicker{font-weight:800; letter-spacing:.12em; text-transform:uppercase; font-size:.8rem; color:var(--muted)}
+  h1{font-size:clamp(2rem, 4vw, 3rem); margin:.4rem 0 0}
+  .sub{margin-top:.6rem; max-width:60ch}
+  .cta-row{display:flex; gap:10px; flex-wrap:wrap; margin-top:18px}
+  .btn{
+    appearance:none; border:1px solid var(--accent); background:transparent;
+    color:var(--accent); padding:.7rem 1rem; border-radius:12px; cursor:pointer; font-weight:700; transition:background .15s ease, color .15s ease;
+  }
+  .btn:hover{background:var(--accent-light)}
+  .btn.primary{background:var(--accent); color:var(--accent-ink)}
+  .btn.primary:hover{background:var(--accent-ring)}
+  .btn:focus{outline:2px solid var(--accent-ring); outline-offset:2px}
+  section{padding:36px 0; border-top:1px solid var(--accent-light)}
+  h2{font-size:1.25rem; margin:0 0 .25rem 0}
+  p{margin:.25rem 0 0 0}
+  footer{border-top:1px solid var(--accent-light); padding:28px 0 56px; font-size:.95rem}
+</style>
+</head>
+<body>
+  <header>
+    <div class="wrap nav" aria-label="Top navigation">
+      <div class="brand" data-i18n="brand">Nevertheless Missions</div>
+      <div class="controls">
+        <button class="lang-btn" id="langBtn" aria-label="言語を英語に切り替える">EN</button>
+        <button class="hamburger" id="hamburger" aria-label="メニューを開く" aria-controls="menu" aria-expanded="false">
+          <span class="sr-only" data-i18n="menu.open">メニュー</span>
+          <div class="bars" aria-hidden="true"><span></span><span></span><span></span></div>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <nav class="menu" id="menu" aria-label="Site menu" data-open="false">
+    <div class="menu-inner">
+      <div class="menu-top">
+        <button class="hamburger" id="menuClose" aria-label="メニューを閉じる" aria-controls="menu" aria-expanded="true">
+          <span class="sr-only" data-i18n="menu.close">閉じる</span>
+          <div class="bars" aria-hidden="true"><span></span><span></span><span></span></div>
+        </button>
+      </div>
+      <div class="menu-links">
+        <a href="/index.html" data-i18n="nav.home">ホーム</a>
+        <a href="/about.html" data-i18n="nav.about">私たちについて</a>
+        <a href="/vision.html" data-i18n="nav.vision">ビジョン</a>
+        <a href="/resources.html" data-i18n="nav.resources">リソース</a>
+        <a href="/events.html" data-i18n="nav.events">集会</a>
+        <a href="/contact.html" data-i18n="nav.contact">お問い合わせ</a>
+        <a href="/donate.html" data-i18n="nav.donate">献金</a>
+      </div>
+      <div class="menu-foot">
+        © <span id="year"></span> Nevertheless Missions — <span data-i18n="tagline">日本へのデジタル宣教</span>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+    <section class="hero">
+      <div class="wrap">
+        <div class="kicker" data-i18n="hero.kicker">Nevertheless Missions</div>
+        <h1 data-i18n="hero.h1">日本へのデジタル宣教</h1>
+        <p class="sub muted" data-i18n="hero.sub">
+          聖書に基づくメディア、対話、そして地域教会とのつながりを通して、イエスの福音を日本の人々に分かち合います。
+        </p>
+        <div class="cta-row">
+          <button class="btn primary" data-go="/donate.html" data-i18n="cta.donate">献金する</button>
+          <button class="btn" data-go="/about.html" data-i18n="cta.learn">詳しく見る</button>
+        </div>
+      </div>
+    </section>
+    <section>
+      <div class="wrap">
+        <h2 data-i18n="section.what.h">私たちの働き</h2>
+        <p class="muted" data-i18n="section.what.p">
+          明確な福音メッセージ、問いを大切にする穏やかな対話、そして地域教会への道筋を提供します。
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap muted" data-i18n="footer.note">
+      クッキーやトラッキングは使用しません。完全に静的なサイトです。
+    </div>
+  </footer>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+  document.querySelectorAll('[data-go]').forEach(b=>b.addEventListener('click',()=>location.href=b.dataset.go));
+  const menu=document.getElementById('menu'),openBtn=document.getElementById('hamburger'),closeBtn=document.getElementById('menuClose');
+  const setMenu=o=>{menu.dataset.open=o?"true":"false";openBtn.setAttribute('aria-expanded',o);closeBtn.setAttribute('aria-expanded',o);document.body.style.overflow=o?'hidden':''};
+  openBtn.addEventListener('click',e=>{e.preventDefault();setMenu(true)});
+  closeBtn.addEventListener('click',e=>{e.preventDefault();setMenu(false)}); // one-liner close only
+  menu.addEventListener('click',e=>{if(e.target===menu)setMenu(false)});
+  window.addEventListener('keydown',e=>{if(e.key==='Escape')setMenu(false)});
+
+  const I18N={ja:{brand:"Nevertheless Missions","menu.open":"メニュー","menu.close":"閉じる","nav.home":"ホーム","nav.about":"私たちについて","nav.vision":"ビジョン","nav.resources":"リソース","nav.events":"集会","nav.contact":"お問い合わせ","nav.donate":"献金",tagline:"日本へのデジタル宣教","hero.kicker":"Nevertheless Missions","hero.h1":"日本へのデジタル宣教","hero.sub":"聖書に基づくメディア、対話、そして地域教会とのつながりを通して、イエスの福音を日本の人々に分かち合います。","cta.donate":"献金する","cta.learn":"詳しく見る","section.what.h":"私たちの働き","section.what.p":"明確な福音メッセージ、問いを大切にする穏やかな対話、そして地域教会への道筋を提供します。","footer.note":"クッキーやトラッキングは使用しません。完全に静的なサイトです。"},en:{brand:"Nevertheless Missions","menu.open":"Menu","menu.close":"Close","nav.home":"Home","nav.about":"About","nav.vision":"Vision","nav.resources":"Resources","nav.events":"Events","nav.contact":"Contact","nav.donate":"Donate",tagline:"Digital Evangelism to Japan","hero.kicker":"Nevertheless Missions","hero.h1":"Digital Evangelism to Japan","hero.sub":"Sharing the good news of Jesus with people in Japan through Scripture, conversation, and connection to local community.","cta.donate":"Donate","cta.learn":"Learn more","section.what.h":"What we do","section.what.p":"Media that explains the gospel clearly, gentle conversations that honor questions, and pathways into local churches.","footer.note":"No cookies. No tracking. Fully static site."}};
+  function setLang(l){const d=I18N[l]||I18N.ja;document.documentElement.lang=l==='en'?'en':'ja';
+    document.querySelectorAll('[data-i18n]').forEach(e=>{const k=e.dataset.i18n;if(d[k]!==undefined)e.textContent=d[k]});
+    const b=document.getElementById('langBtn');if(l==='ja'){b.textContent='EN';b.setAttribute('aria-label','Switch to English')}else{b.textContent='日本語';b.setAttribute('aria-label','Switch to Japanese')}localStorage.setItem('nm_lang',l)}
+  document.getElementById('langBtn').addEventListener('click',()=>{const c=localStorage.getItem('nm_lang')||'ja';setLang(c==='ja'?'en':'ja')});
+  setLang(localStorage.getItem('nm_lang')||'ja');
+</script>
+</body>
+</html>
