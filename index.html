@@ -1,165 +1,181 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Nevertheless Missions</title>
-<meta name="description" content="Nevertheless Missions — 日本へのデジタル宣教。" />
-
-<style>
-  :root{
-    --bg:#ffffff; --fg:#0a0a0a; --muted:#575757;
-    --accent:#9E1B1B; --accent-light:#F3E5E5; --accent-ring:#C94C4C; --accent-ink:#ffffff;
-    --maxw:900px;
-  }
-  @media (prefers-color-scheme: dark){
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>イエス・キリストについて — シンプル案内</title>
+  <meta name="description" content="日本の方々へ、イエス・キリストの福音をシンプルに紹介する静的サイト。" />
+  <style>
+    /* -------- Color tokens (approximated from neverthelessmissions.org) -------- */
     :root{
-      --bg:#0c0c0c; --fg:#f3f3f3; --muted:#b7b7b7;
-      --accent:#9E1B1B; --accent-light:#2B0E0E; --accent-ring:#802121; --accent-ink:#ffffff;
+      --ink:#1f1a17;
+      --brown:#654328;    /* headings, nav */
+      --salmon:#f99b96;   /* accents */
+      --cream:#fcfcdc;    /* page bg */
+      --rose:#fbf3f2;     /* panels */
+      --peach:#ecb4ac;    /* subtle borders */
     }
-  }
-  *{box-sizing:border-box}
-  html,body{height:100%}
-  body{
-    margin:0; background:var(--bg); color:var(--fg);
-    font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
-    line-height:1.6; -webkit-font-smoothing:antialiased;
-  }
-  .wrap{max-width:var(--maxw); margin:0 auto; padding:0 20px}
-  .muted{color:var(--muted)}
-  .sr-only{position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0}
 
-  header{position:sticky; top:0; z-index:20; background:var(--bg); border-bottom:1px solid var(--accent-light)}
-  .nav{height:64px; display:flex; align-items:center; justify-content:space-between; gap:12px}
-  .brand{font-weight:800; letter-spacing:.2px}
-  .controls{display:flex; align-items:center; gap:8px}
-  .lang-btn{
-    appearance:none; border:1px solid var(--accent); background:transparent;
-    color:var(--accent); padding:.55rem .8rem; border-radius:10px; cursor:pointer; font-weight:700;
-  }
-  .lang-btn:hover{background:var(--accent-light)}
-  .lang-btn:focus{outline:2px solid var(--accent-ring); outline-offset:2px}
-  .hamburger{
-    display:inline-flex; width:42px; height:42px; border:1px solid var(--accent-light); border-radius:10px;
-    align-items:center; justify-content:center; background:transparent; cursor:pointer; color:var(--accent);
-  }
-  .hamburger:focus{outline:2px solid var(--accent-ring); outline-offset:2px}
-  .hamburger .bars{width:18px; height:12px; display:grid; gap:4px}
-  .hamburger .bars span{display:block; height:2px; background:var(--accent); transition:transform .2s ease, opacity .2s ease}
-  .hamburger[aria-expanded="true"] .bars span:nth-child(1){transform:translateY(6px) rotate(45deg)}
-  .hamburger[aria-expanded="true"] .bars span:nth-child(2){opacity:0}
-  .hamburger[aria-expanded="true"] .bars span:nth-child(3){transform:translateY(-6px) rotate(-45deg)}
-  .menu{position:fixed; inset:0; background:var(--bg); display:none; z-index:15}
-  .menu[data-open="true"]{display:block}
-  .menu-inner{max-width:var(--maxw); margin:0 auto; padding:24px 20px 40px; display:flex; flex-direction:column; height:100%}
-  .menu-top{display:flex; justify-content:flex-end}
-  .menu-links{margin:auto 0; display:grid; gap:16px}
-  .menu-links a{text-decoration:none; color:var(--accent); font-size:1.6rem; font-weight:700}
-  .menu-links a:hover{color:var(--accent-ring)}
-  .menu-foot{margin-top:auto; font-size:.9rem; color:var(--muted)}
+    /* -------- Base -------- */
+    html,body{margin:0;padding:0;background:var(--cream);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue","Noto Sans JP",Arial,sans-serif;line-height:1.6}
+    a{color:var(--brown);text-decoration:none}
+    a:hover{text-decoration:underline}
+    .wrap{max-width:960px;margin:auto;padding:1rem}
 
-  .hero{padding:80px 0 56px}
-  .kicker{font-weight:800; letter-spacing:.12em; text-transform:uppercase; font-size:.8rem; color:var(--muted)}
-  h1{font-size:clamp(2rem, 4vw, 3rem); margin:.4rem 0 0}
-  .sub{margin-top:.6rem; max-width:60ch}
-  .cta-row{display:flex; gap:10px; flex-wrap:wrap; margin-top:18px}
-  .btn{
-    appearance:none; border:1px solid var(--accent); background:transparent;
-    color:var(--accent); padding:.7rem 1rem; border-radius:12px; cursor:pointer; font-weight:700; transition:background .15s ease, color .15s ease;
-  }
-  .btn:hover{background:var(--accent-light)}
-  .btn.primary{background:var(--accent); color:var(--accent-ink)}
-  .btn.primary:hover{background:var(--accent-ring)}
-  .btn:focus{outline:2px solid var(--accent-ring); outline-offset:2px}
-  section{padding:36px 0; border-top:1px solid var(--accent-light)}
-  h2{font-size:1.25rem; margin:0 0 .25rem 0}
-  p{margin:.25rem 0 0 0}
-  footer{border-top:1px solid var(--accent-light); padding:28px 0 56px; font-size:.95rem}
-</style>
+    /* -------- Header + Brand -------- */
+    header{background:var(--brown);color:white}
+    .brand{display:flex;align-items:center;gap:.75rem}
+    .brand__logo{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--salmon),var(--peach));box-shadow:0 0 0 3px rgba(255,255,255,.2) inset}
+    .brand__title{font-weight:700;letter-spacing:.03em}
+
+    /* -------- Lang Switch (CSS-only) -------- */
+    .lang-toggle{display:flex;align-items:center;gap:.5rem;margin-left:auto}
+    .lang-toggle input{appearance:none;width:44px;height:24px;border:2px solid white;border-radius:999px;position:relative;outline:none;cursor:pointer}
+    .lang-toggle input:before{content:"";position:absolute;top:1px;left:1px;width:18px;height:18px;border-radius:50%;background:white;transition:.2s}
+    .lang-toggle input:checked:before{transform:translateX(20px)}
+    .lang-toggle label{font-size:.9rem;color:#fff;opacity:.9}
+
+    /* -------- Hamburger Nav (CSS-only) -------- */
+    .navbar{display:flex;align-items:center;gap:1rem}
+    #nav-check{display:none}
+    .hamburger{display:inline-flex;flex-direction:column;gap:4px;padding:.5rem;border:1px solid rgba(255,255,255,.35);border-radius:8px;cursor:pointer}
+    .hamburger span{display:block;width:22px;height:2px;background:#fff}
+    nav{position:relative}
+    .drawer{position:absolute;top:calc(100% + .5rem);left:0;background:var(--rose);border:1px solid var(--peach);border-radius:.5rem;box-shadow:0 6px 20px rgba(0,0,0,.08);padding:.5rem;min-width:280px;display:none;z-index:10}
+    #nav-check:checked + label + .drawer{display:block}
+    .drawer a{display:block;padding:.6rem .8rem;border-radius:.35rem}
+    .drawer a:hover{background:#fff}
+
+    /* -------- Content blocks -------- */
+    .hero{background:linear-gradient(180deg,rgba(101,67,40,.08),transparent);padding:2.5rem 1rem}
+    .card{background:var(--rose);border:1px solid var(--peach);border-radius:.75rem;padding:1rem;margin:1rem 0}
+    .btn{display:inline-block;background:var(--brown);color:#fff;padding:.65rem 1rem;border-radius:.5rem}
+    .btn--light{background:var(--salmon);color:#3a2a25}
+
+    /* -------- Language visibility -------- */
+    /* Checked = show English, hide Japanese */
+    #lang-switch:checked ~ main .ja{display:none}
+    #lang-switch:checked ~ main .en{display:block}
+    /* Default = Japanese visible */
+    .en{display:none}
+
+    /* -------- Footer -------- */
+    footer{padding:2rem 1rem;color:#553d30}
+
+    /* -------- Responsive -------- */
+    @media (min-width:720px){
+      .hero__grid{display:grid;grid-template-columns:1.2fr .8fr;gap:1rem;align-items:center}
+    }
+  </style>
 </head>
 <body>
+  <!-- Header -->
   <header>
-    <div class="wrap nav" aria-label="Top navigation">
-      <div class="brand" data-i18n="brand">Nevertheless Missions</div>
-      <div class="controls">
-        <button class="lang-btn" id="langBtn" aria-label="言語を英語に切り替える">EN</button>
-        <button class="hamburger" id="hamburger" aria-label="メニューを開く" aria-controls="menu" aria-expanded="false">
-          <span class="sr-only" data-i18n="menu.open">メニュー</span>
-          <div class="bars" aria-hidden="true"><span></span><span></span><span></span></div>
-        </button>
+    <div class="wrap navbar">
+      <div class="brand">
+        <div class="brand__logo" aria-hidden="true"></div>
+        <div class="brand__title">イエスについて — シンプル案内</div>
       </div>
+
+      <!-- Language toggle (JA ↔ EN) -->
+      <div class="lang-toggle" title="言語を切り替え">
+        <input type="checkbox" id="lang-switch" aria-label="Switch language to English" />
+        <label for="lang-switch">日本語 / English</label>
+      </div>
+
+      <!-- Hamburger menu -->
+      <nav style="margin-left: .5rem;">
+        <input type="checkbox" id="nav-check" />
+        <label class="hamburger" for="nav-check" aria-label="Open questions menu">
+          <span></span><span></span><span></span>
+        </label>
+        <div class="drawer" role="menu" aria-label="Questions">
+          <a href="#home" role="menuitem">ホーム</a>
+          <a href="#depression" role="menuitem">うつで悩んでいますか？</a>
+          <a href="#expectations" role="menuitem">文化の期待に応えられないと感じますか？</a>
+          <a href="#whoisjesus" role="menuitem">イエスとは誰ですか？</a>
+          <a href="#hope" role="menuitem">希望はありますか？</a>
+          <a href="#contact" role="menuitem">相談する</a>
+        </div>
+      </nav>
     </div>
   </header>
 
-  <nav class="menu" id="menu" aria-label="Site menu" data-open="false">
-    <div class="menu-inner">
-      <div class="menu-top">
-        <button class="hamburger" id="menuClose" aria-label="メニューを閉じる" aria-controls="menu" aria-expanded="true">
-          <span class="sr-only" data-i18n="menu.close">閉じる</span>
-          <div class="bars" aria-hidden="true"><span></span><span></span><span></span></div>
-        </button>
-      </div>
-      <div class="menu-links">
-        <a href="/index.html" data-i18n="nav.home">ホーム</a>
-        <a href="/about.html" data-i18n="nav.about">私たちについて</a>
-        <a href="/vision.html" data-i18n="nav.vision">ビジョン</a>
-        <a href="/resources.html" data-i18n="nav.resources">リソース</a>
-        <a href="/events.html" data-i18n="nav.events">集会</a>
-        <a href="/contact.html" data-i18n="nav.contact">お問い合わせ</a>
-        <a href="/donate.html" data-i18n="nav.donate">献金</a>
-      </div>
-      <div class="menu-foot">
-        © <span id="year"></span> Nevertheless Missions — <span data-i18n="tagline">日本へのデジタル宣教</span>
-      </div>
-    </div>
-  </nav>
+  <!-- Main -->
+  <main class="wrap">
+    <!-- Hero -->
+    <section id="home" class="hero">
+      <div class="hero__grid">
+        <div class="ja">
+          <h1 style="color:var(--brown);margin-top:0;">あなたは愛されています。</h1>
+          <p>イエス・キリストは、失望や重荷を抱える私たちに命と希望を与えるために来られました。ここでは、聖書が語る「良い知らせ」をやさしい言葉で紹介します。</p>
+          <a class="btn" href="#whoisjesus">イエスについて読む</a>
+        </div>
+        <div class="en">
+          <h1 style="color:var(--brown);margin-top:0;">You are loved.</h1>
+          <p>Jesus Christ came to give life and hope to people carrying disappointment and heavy burdens. This site shares the “Good News” in simple language.</p>
+          <a class="btn" href="#whoisjesus">Read about Jesus</a>
+        </div>
 
-  <main>
-    <section class="hero">
-      <div class="wrap">
-        <div class="kicker" data-i18n="hero.kicker">Nevertheless Missions</div>
-        <h1 data-i18n="hero.h1">日本へのデジタル宣教</h1>
-        <p class="sub muted" data-i18n="hero.sub">
-          聖書に基づくメディア、対話、そして地域教会とのつながりを通して、イエスの福音を日本の人々に分かち合います。
-        </p>
-        <div class="cta-row">
-          <button class="btn primary" data-go="/donate.html" data-i18n="cta.donate">献金する</button>
-          <button class="btn" data-go="/about.html" data-i18n="cta.learn">詳しく見る</button>
+        <div class="card">
+          <p class="ja"><strong>短い要約：</strong>神はあなたを造り、愛しておられます。罪は私たちを神から離しますが、イエスは十字架と復活によって救いの道を開かれました。信じる者には赦しと新しいいのちが与えられます。</p>
+          <p class="en"><strong>Short summary:</strong> God made you and loves you. Sin separates us from God, but through Jesus’s cross and resurrection a way was opened. Whoever trusts Him receives forgiveness and new life.</p>
         </div>
       </div>
     </section>
-    <section>
-      <div class="wrap">
-        <h2 data-i18n="section.what.h">私たちの働き</h2>
-        <p class="muted" data-i18n="section.what.p">
-          明確な福音メッセージ、問いを大切にする穏やかな対話、そして地域教会への道筋を提供します。
-        </p>
-      </div>
+
+    <!-- Q1 -->
+    <section id="depression" class="card">
+      <h2 class="ja" style="color:var(--brown);">うつで悩んでいますか？</h2>
+      <h2 class="en" style="color:var(--brown);">Do you struggle with depression?</h2>
+      <p class="ja">あなたの痛みは無視されません。詩篇34:18「主は心の打ち砕かれた者の近くにおられる。」専門家の助けを求めることは大切です。祈りや相談も歓迎します。</p>
+      <p class="en">Your pain is not ignored. Psalm 34:18: “The Lord is close to the brokenhearted.” It’s important to seek professional help. We’d also be honored to pray with you.</p>
+      <a class="btn btn--light" href="#contact">相談する / Contact</a>
+    </section>
+
+    <!-- Q2 -->
+    <section id="expectations" class="card">
+      <h2 class="ja" style="color:var(--brown);">文化の期待に応えられないと感じますか？</h2>
+      <h2 class="en" style="color:var(--brown);">Do you feel you fail to meet cultural expectations?</h2>
+      <p class="ja">イエスは「疲れた者、重荷を負う者は、だれでもわたしのもとに来なさい」（マタイ11:28）と言われました。神の恵みは、業績や評価ではなく、無償の愛です。</p>
+      <p class="en">Jesus says, “Come to me, all who are weary and burdened” (Matthew 11:28). God’s grace isn’t based on performance or social score—it’s a gift.</p>
+    </section>
+
+    <!-- Who is Jesus -->
+    <section id="whoisjesus" class="card">
+      <h2 class="ja" style="color:var(--brown);">イエスとは誰ですか？</h2>
+      <h2 class="en" style="color:var(--brown);">Who is Jesus?</h2>
+      <ul class="ja">
+        <li>神の御子（ヨハネ3:16）</li>
+        <li>私たちの罪のために死に、三日目によみがえられた救い主（1コリント15:3–4）</li>
+        <li>今も生きておられ、あなたを招いておられます</li>
+      </ul>
+      <ul class="en">
+        <li>The Son of God (John 3:16)</li>
+        <li>The Savior who died for our sins and rose on the third day (1 Cor 15:3–4)</li>
+        <li>Alive today—inviting you to come to Him</li>
+      </ul>
+    </section>
+
+    <!-- Hope / Response -->
+    <section id="hope" class="card">
+      <h2 class="ja" style="color:var(--brown);">希望はありますか？</h2>
+      <h2 class="en" style="color:var(--brown);">Is there hope?</h2>
+      <p class="ja">はい。イエスを信頼し、心を開いて祈るなら、赦しと新しい人生が始まります。例：「主イエスよ、私をお救いください。私の罪を赦し、あなたに従う力を与えてください。アーメン。」</p>
+      <p class="en">Yes. If you place your trust in Jesus and pray, a new life begins. Example: “Lord Jesus, save me. Forgive my sins and give me strength to follow You. Amen.”</p>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" class="card">
+      <h2 class="ja" style="color:var(--brown);">相談・連絡</h2>
+      <h2 class="en" style="color:var(--brown);">Contact</h2>
+      <p class="ja">祈りや相談をご希望の方は、以下のメールにご連絡ください：<a href="mailto:info@example.org">info@example.org</a></p>
+      <p class="en">For prayer or conversation, email: <a href="mailto:info@example.org">info@example.org</a></p>
     </section>
   </main>
 
-  <footer>
-    <div class="wrap muted" data-i18n="footer.note">
-      クッキーやトラッキングは使用しません。完全に静的なサイトです。
-    </div>
+  <footer class="wrap" role="contentinfo">
+    <small>© <span id="y">2025</span> Simple Gospel Site. 色は neverthelessmissions.org の雰囲気に合わせています。</small>
   </footer>
-
-<script>
-  document.getElementById('year').textContent = new Date().getFullYear();
-  document.querySelectorAll('[data-go]').forEach(b=>b.addEventListener('click',()=>location.href=b.dataset.go));
-  const menu=document.getElementById('menu'),openBtn=document.getElementById('hamburger'),closeBtn=document.getElementById('menuClose');
-  const setMenu=o=>{menu.dataset.open=o?"true":"false";openBtn.setAttribute('aria-expanded',o);closeBtn.setAttribute('aria-expanded',o);document.body.style.overflow=o?'hidden':''};
-  openBtn.addEventListener('click',e=>{e.preventDefault();setMenu(true)});
-  closeBtn.addEventListener('click',e=>{e.preventDefault();setMenu(false)}); // one-liner close only
-  menu.addEventListener('click',e=>{if(e.target===menu)setMenu(false)});
-  window.addEventListener('keydown',e=>{if(e.key==='Escape')setMenu(false)});
-
-  const I18N={ja:{brand:"Nevertheless Missions","menu.open":"メニュー","menu.close":"閉じる","nav.home":"ホーム","nav.about":"私たちについて","nav.vision":"ビジョン","nav.resources":"リソース","nav.events":"集会","nav.contact":"お問い合わせ","nav.donate":"献金",tagline:"日本へのデジタル宣教","hero.kicker":"Nevertheless Missions","hero.h1":"日本へのデジタル宣教","hero.sub":"聖書に基づくメディア、対話、そして地域教会とのつながりを通して、イエスの福音を日本の人々に分かち合います。","cta.donate":"献金する","cta.learn":"詳しく見る","section.what.h":"私たちの働き","section.what.p":"明確な福音メッセージ、問いを大切にする穏やかな対話、そして地域教会への道筋を提供します。","footer.note":"クッキーやトラッキングは使用しません。完全に静的なサイトです。"},en:{brand:"Nevertheless Missions","menu.open":"Menu","menu.close":"Close","nav.home":"Home","nav.about":"About","nav.vision":"Vision","nav.resources":"Resources","nav.events":"Events","nav.contact":"Contact","nav.donate":"Donate",tagline:"Digital Evangelism to Japan","hero.kicker":"Nevertheless Missions","hero.h1":"Digital Evangelism to Japan","hero.sub":"Sharing the good news of Jesus with people in Japan through Scripture, conversation, and connection to local community.","cta.donate":"Donate","cta.learn":"Learn more","section.what.h":"What we do","section.what.p":"Media that explains the gospel clearly, gentle conversations that honor questions, and pathways into local churches.","footer.note":"No cookies. No tracking. Fully static site."}};
-  function setLang(l){const d=I18N[l]||I18N.ja;document.documentElement.lang=l==='en'?'en':'ja';
-    document.querySelectorAll('[data-i18n]').forEach(e=>{const k=e.dataset.i18n;if(d[k]!==undefined)e.textContent=d[k]});
-    const b=document.getElementById('langBtn');if(l==='ja'){b.textContent='EN';b.setAttribute('aria-label','Switch to English')}else{b.textContent='日本語';b.setAttribute('aria-label','Switch to Japanese')}localStorage.setItem('nm_lang',l)}
-  document.getElementById('langBtn').addEventListener('click',()=>{const c=localStorage.getItem('nm_lang')||'ja';setLang(c==='ja'?'en':'ja')});
-  setLang(localStorage.getItem('nm_lang')||'ja');
-</script>
 </body>
 </html>
